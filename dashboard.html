@@ -35,7 +35,7 @@
             <p>When you're done, review your answers and See your rank</p>
 
 
-            <div class="sample-form">
+            <!-- <div class="sample-form">
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
                     <input type="text" name="fullName" id="fullName" placeholder="Full Name">
@@ -48,9 +48,16 @@
                     <label for="contactNo">Contact No</label>
                     <input type="text" name="contactNo" id="contactNo" placeholder="Contact No">
                 </div>
-            </div>
+            </div> -->
 
-            <button id="start">Start Quiz</button>
+            <button id="start" onclick="startQuiz()">Start Quiz</button>
+
+            <script>
+              function startQuiz() {
+                window.location.href = "questions.html";
+              }
+            </script>
+            
         </div>
 
         
