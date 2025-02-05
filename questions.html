@@ -34,15 +34,16 @@
 
         <!-- Navigation Buttons -->
         <div class="navigation-buttons">
-            <button id="previous-button" onclick="previousQuestion()" disabled>Previous</button>
-            <button id="next-button" onclick="nextQuestion()">Submit & Next -></button>
-            <!-- Add this in your HTML where appropriate -->
+            <button id="previous-button" onclick="previousQuestion()">← Previous</button>
+            <button id="next-button" onclick="nextQuestion()">Next & Continue -></button>
+            <button id="submit-button" onclick="submitAnswers()" style="display: none;">Submit Quiz</button>
+            
 <!-- <button id="submit-button" onclick="submitAnswers()">Submit</button> -->
         </div>
     </div>
 
     <!-- <script src="question.js" defer></script> -->
-    <script src="/questions.js"></script>
+    <script src="question.js"></script>
 </body>
 
 </html>

@@ -221,96 +221,149 @@ const allquestions = [
     }
 ];
 
+// Function to shuffle the questions and select 10 random questions
+function getRandomQuestions(allquestions, numQuestions) {
+    const shuffledQuestions = allquestions.sort(() => 0.5 - Math.random());
+    return shuffledQuestions.slice(0, numQuestions);
+}
 
+// Store the questions in localStorage only if they are not already stored
+var questionsStorage = localStorage.getItem("allquestions");
+if (!questionsStorage) {
+    localStorage.setItem("allquestions", JSON.stringify(allquestions));
+}
 
-// Yeh function ek question ko load karega
+// Quiz State
+let currentQuestionIndex = 0;
+const answers = []; // Stores objects with questionId and selected answerId
+
+// Get 10 random questions
+const randomQuestions = getRandomQuestions(allquestions, 10);
+
+// User information
+const userInfo = {
+    id: null,
+    name: null,
+    email: null
+};
+
+// Load a question
 function loadQuestion() {
     const questionNumberElement = document.getElementById("question-number");
     const questionTextElement = document.getElementById("question-text");
     const optionsContainer = document.getElementById("options-container");
     const progressBar = document.getElementById("progress-bar");
+    const nextButton = document.getElementById("next-button");
+    const submitButton = document.getElementById("submit-button");
+    const previousButton = document.getElementById("previous-button");
 
-    // Current question nikal raha hai
+    // Get current question
     const currentQuestion = randomQuestions[currentQuestionIndex];
 
-    // Question number aur text update karna
-    questionNumberElement.innerText = `Question ${currentQuestionIndex + 1} of ${randomQuestions.length}`;
+    // Special messages for Q8 & Q10
+    let extraMessage = "";
+    if (currentQuestionIndex === 7) {
+        extraMessage = " - Hey! Last 2 questions remaining! ";
+    } else if (currentQuestionIndex === 9) {
+        extraMessage = " - This is your last question! Make it count!";
+    }
+
+    // Update question number and text
+    questionNumberElement.innerText = `Question ${currentQuestionIndex + 1} of ${randomQuestions.length}${extraMessage}`;
     questionTextElement.innerText = currentQuestion.question;
 
-    // Pichle options hata raha hai
+    // Clear previous options
     optionsContainer.innerHTML = "";
 
-    // Naye options add karna
-    currentQuestion.options.forEach((option) => {
-        const optionElement = document.createElement("div");
-        optionElement.className = "option";
+    if (currentQuestion.options && currentQuestion.options.length > 0) {
+        currentQuestion.options.forEach((option) => {
+            const optionElement = document.createElement("div");
+            optionElement.className = "option";
+            optionElement.innerHTML = `
+                <label>
+                    <input type="radio" name="answer" value="${option.id}" onclick="selectAnswer(event)">
+                    ${option.value}
+                </label>
+            `;
+            optionsContainer.appendChild(optionElement);
+        });
 
-        optionElement.innerHTML = `
-            <label>
-                <input type="radio" name="answer" value="${option.id}">
-                ${option.value}
-            </label>
-        `;
-        optionsContainer.appendChild(optionElement);
-    });
+        // Restore previously selected answer and highlight
+        const previousAnswer = answers[currentQuestionIndex];
+        if (previousAnswer) {
+            const selectedInput = document.querySelector(`input[name="answer"][value="${previousAnswer.selectedAnswerId}"]`);
+            if (selectedInput) {
+                selectedInput.checked = true;
+                selectedInput.parentElement.style.backgroundColor = '#F3BD00'; // Restore yellow highlight
+            }
+        }
+    } else {
+        optionsContainer.innerHTML = "<p style='color:red;'>No options available for this question.</p>";
+    }
 
-    // Progress bar update karna
-    const progress = ((currentQuestionIndex + 1) / randomQuestions.length) * 100;
-    progressBar.style.width = `${progress}%`;
+    // Update progress bar
+    progressBar.style.width = `${((currentQuestionIndex + 1) / randomQuestions.length) * 100}%`;
 
-    // Previous button enable/disable karna
-    const previousButton = document.getElementById("previous-button");
+    // Update button visibility based on question number
+    if (currentQuestionIndex === 9) {
+        nextButton.style.display = "none"; // Hide Next on last question
+        submitButton.style.display = "block"; // Show Submit Quiz
+    } else {
+        nextButton.style.display = "block"; // Show Next for other questions
+        nextButton.innerText = "Next & Continue ->";
+        submitButton.style.display = "none"; // Hide Submit for other questions
+    }
+
+    // Enable/disable previous button
     previousButton.disabled = currentQuestionIndex === 0;
-
-    // Jab answer select ho toh usko store karne ka event listener
-    const radioButtons = document.querySelectorAll('input[name="answer"]');
-    radioButtons.forEach((radio) => {
-        radio.addEventListener('change', selectAnswer);
-    });
 }
 
-// Answer select karne ka function
+// Handle answer selection and highlight the selected option
 function selectAnswer(event) {
     const options = document.querySelectorAll('input[name="answer"]');
     options.forEach((option) => {
-        option.parentElement.style.backgroundColor = ''; // Background color reset kar raha hai
+        option.parentElement.style.backgroundColor = ''; // Reset highlight
     });
 
-    // Select kiya hua option highlight karna
-    event.target.parentElement.style.backgroundColor = 'yellow';
+    // Highlight the selected option
+    event.target.parentElement.style.backgroundColor = '#F3BD00';
     const selectedAnswerId = event.target.value;
     const currentQuestion = randomQuestions[currentQuestionIndex];
 
-    // Selected answer ko store karna
+    // Store the selected answer with its question ID
     answers[currentQuestionIndex] = { questionId: currentQuestion.id, selectedAnswerId: selectedAnswerId };
 }
 
-// User ka data retrieve karna
-function collectUserInfo() {
-    var user = localStorage.getItem("loggedInUser"); // LocalStorage se user ka data lena
-    return user;
-}
-
-// Next question par jaana
+// Move to the next question
 function nextQuestion() {
     const selectedOption = document.querySelector('input[name="answer"]:checked');
+
     if (!selectedOption) {
-        alert("Please select an answer!"); // Agar user ne answer select nahi kiya toh alert karega
+        alert("Please select an answer!");
         return;
     }
 
-    // Next question par move karna
+    const selectedAnswerId = selectedOption.value;
+    const currentQuestion = randomQuestions[currentQuestionIndex];
+
+    // Store the selected answer
+    answers[currentQuestionIndex] = { 
+        questionId: currentQuestion.id, 
+        selectedAnswerId: selectedAnswerId 
+    };
+
+    // Move to next question
     currentQuestionIndex++;
 
     if (currentQuestionIndex < randomQuestions.length) {
-        loadQuestion();
+        loadQuestion(); // Load next question
     } else {
-        submitAnswers(); // Last question ke baad answers submit karna
+        submitAnswers();
         alert("Quiz complete! Click Submit.");
     }
 }
 
-// Previous question par jaana
+// Move to the previous question
 function previousQuestion() {
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
@@ -318,24 +371,26 @@ function previousQuestion() {
     }
 }
 
-// Answers submit karna
+// Submit answers
 function submitAnswers() {
-    var score = 0;
-    var users = JSON.parse(localStorage.getItem("loggedInUser")) || {};
-
-    var quizResults = JSON.parse(localStorage.getItem('quizResults')) || [];
+    let score = 0;
+    let users = JSON.parse(localStorage.getItem("loggedInUser")) || {};
+    let quizResults = JSON.parse(localStorage.getItem('quizResults')) || [];
+    
     if (!Array.isArray(quizResults)) {
-        quizResults = [];  // Agar quizResults array nahi hai toh usko empty array bana dega
+        quizResults = []; // Reset if it's not an array
     }
 
-    answers.map(answer => {
+    // Calculate score
+    answers.forEach(answer => {
         const question = randomQuestions.find(q => q.id === answer.questionId);
-        if(answer.selectedAnswerId == question.answer) {
-            score = score + 100; // Agar answer sahi hai toh score badh raha hai
+        if (answer.selectedAnswerId == question.answer) {
+            score += 100;
         }
     });
-    
-    var result = {
+
+    // Store result
+    let result = {
         emailId: users.emailId,
         fullName: users.fullName,
         answers: answers.map(answer => {
@@ -344,19 +399,17 @@ function submitAnswers() {
                 questionId: answer.questionId,
                 questionText: question.question,
                 selectedAnswerId: answer.selectedAnswerId,
-                correctAnswerId: question.answer,    
+                correctAnswerId: question.answer,
             };
         }),
         score: score
     };
 
-    // Result ko localStorage me save karna
+    // Save to local storage
     quizResults.push(result);
     localStorage.setItem("quizResults", JSON.stringify(quizResults));
-    
-    // Result submit hone ke baad ranking page pe redirect karna
-    window.location.href="ranking.html";
+    window.location.href = "ranking.html";
 }
 
-// Quiz start hone par pehla question load karna
+// Initialize the quiz
 loadQuestion();

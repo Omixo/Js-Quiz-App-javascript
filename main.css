@@ -226,7 +226,7 @@ button {
     flex-direction: column;
     gap: 10px;
 }
-
+y
 .sample-form input[type="text"],
 .sample-form input[type="email"] {
     height: 51px;
@@ -484,7 +484,7 @@ input[type="radio"]:checked + label {
 }
 
 .highlighted {
-    background-color: #FFD700; /* Golden color for better visibility */
+    background-color: #f2dd69; /* Golden color for better visibility */
     color: #000;
 }
 
@@ -505,4 +505,26 @@ input[type="radio"]:checked + label {
     flex: 0.5;
     text-align: right; /* Ensures score is right-aligned */
     font-size: 28px;
+}
+#menu {
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 40px; /* Adjust to your design */
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    width: 100px; /* Adjust width to your liking */
+}
+
+#menu div {
+    padding: 8px;
+    text-align: left;
+    cursor: pointer;
+}
+
+#menu div:hover {
+    background-color: #f0f0f0;
 }

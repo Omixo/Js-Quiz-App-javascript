@@ -1,69 +1,72 @@
 function signup() {
-    // User se input values le rahe hain
+    // Get input values
     const fullName = document.getElementById('fullName').value;
     const emailId = document.getElementById('emailId').value;
     const password = document.getElementById('password').value;
-
-    // Pehle ke error messages hata rahe hain
+    const termsCheckbox = document.getElementById('terms');
+  
+    // Clear previous error messages
     clearErrors();
-
-    // Check kar rahe hain ki sare fields fill hain ya nahi
-    if (fullName && emailId && password) {
-        // Email format check karne ke liye regex pattern
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
-        let isValid = true;
-
-        // Email format check kar rahe hain
-        if (!emailPattern.test(emailId)) {
-            displayError('emailId', 'Please enter a valid email address.');
-            isValid = false;
-        }
-
-        // Password ki length kam se kam 6 characters honi chahiye
-        if (password.length < 6) {
-            displayError('password', 'Password must be at least 6 characters long.');
-            isValid = false;
-        }
-
-        // Full name mein numbers nahi hone chahiye
-        if (/\d/.test(fullName)) {
-            displayError('fullName', 'Full name should not contain numbers.');
-            isValid = false;
-        }
-
-        // Agar koi validation fail hota hai to function yahin stop ho jayega
-        if (!isValid) return;
-
-        // Pehle se registered users ko localStorage se fetch kar rahe hain
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-
-        // Check kar rahe hain ki email already registered hai ya nahi
-        if (users.some(user => user.emailId === emailId)) {
-            displayError('emailId', 'Email is already registered. Please log in.');
-            return;
-        }
-
-        // Naya user object bana rahe hain
-        const user = {
-            id: Date.now(), // Unique ID generate kar rahe hain
-            fullName: fullName,
-            emailId: emailId,
-            password: password
-        };
-
-        // Naye user ko users list me add kar ke localStorage me save kar rahe hain
-        users.push(user);
-        localStorage.setItem('users', JSON.stringify(users));
-
-        alert('Signup successful! You can now log in.');
-        window.location.href = 'login.html'; // Login page pe redirect kar rahe hain
-    } else {
-        // Agar koi field empty ho to error show karna
-        displayError('fullName', 'Please fill in all fields.');
-        displayError('emailId', 'Please fill in all fields.');
-        displayError('password', 'Please fill in all fields.');
+  
+    // Basic input validation
+    if (!fullName || !emailId || !password) {
+      displayError('fullName', 'Please fill in all fields.');
+      displayError('emailId', 'Please fill in all fields.');
+      displayError('password', 'Please fill in all fields.');
+      return;
     }
-}
+  
+    // Email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(emailId)) {
+      displayError('emailId', 'Please enter a valid email address.');
+      return;
+    }
+  
+    // Password validation (simplified)
+    if (password.length < 8) {
+      displayError('password', 'Password must be at least 8 characters long.');
+      return;
+    }
+  
+    // Check if terms are accepted
+    if (!termsCheckbox.checked) {
+      alert('Please accept the Terms and Conditions.');
+      return;
+    }
+  
+    // Check if email is already registered
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    if (users.some(user => user.emailId === emailId)) {
+      displayError('emailId', 'Email is already registered. Please log in.');
+      return;
+    }
+  
+    // Create new user object
+    const newUser = {
+      id: Date.now(),
+      fullName: fullName,
+      emailId: emailId,
+      password: password
+    };
+  
+    // Add new user to localStorage
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+  
+    alert('Signup successful! You can now log in.');
+    window.location.href = 'login.html';
+  }
+  
+  function displayError(inputId, message) {
+    const errorElement = document.getElementById(inputId + 'Error');
+    errorElement.textContent = message;
+  }
+  
+  function clearErrors() {
+    const errorElements = document.querySelectorAll('.error-message');
+    errorElements.forEach(error => error.textContent = '');
+  }
 
 function login() {
     // User se input values le rahe hain
@@ -81,7 +84,7 @@ function login() {
     }
 
     // Email format sahi hai ya nahi ye check kar rahe hain
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(emailId)) {
         displayError('emailId', 'Please enter a valid email address.');
         return;

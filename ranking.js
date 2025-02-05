@@ -1,14 +1,22 @@
 function displayRankings() {
-    const quizResults = JSON.parse(localStorage.getItem('quizResults')) || []; // Quiz results ko localStorage se fetch kar rahe hain
-    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')); // Logged-in user ki details fetch kar rahe hain
+    // Retrieve quiz results and logged-in user from localStorage
+    const quizResults = JSON.parse(localStorage.getItem('quizResults')) || [];
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
-    console.log("Quiz Results:", quizResults); // Console me quiz results dikhana
-    console.log("Logged-in User:", loggedInUser); // Console me logged-in user dikhana
+    // Debug logging
+    console.log("Total Quiz Results:", quizResults);
+    console.log("Logged-in User:", loggedInUser);
 
-    // Results ko score ke basis pe descending order me sort karna
-    quizResults.sort((a, b) => b.score - a.score);
+    // Validate and sort results
+    if (!Array.isArray(quizResults)) {
+        console.error("Quiz results is not an array");
+        return;
+    }
 
-    // Ranking elements ke references le rahe hain
+    // Sort results in descending order based on score
+    const sortedResults = quizResults.sort((a, b) => b.score - a.score);
+
+    // Get ranking element references
     const firstNameEl = document.getElementById('firstName');
     const firstScoreEl = document.getElementById('first');
     const secondNameEl = document.getElementById('secondName');
@@ -16,50 +24,132 @@ function displayRankings() {
     const thirdNameEl = document.getElementById('thirdName');
     const thirdScoreEl = document.getElementById('third');
     const otherUsersContainer = document.querySelector('.other-users-container');
+    const rankHeading = document.getElementById('rank-heading');
+    const rankDescription = document.getElementById('rank');
 
-    // Pehle se dikhaaye gaye rankings ko clear karna
+    // Validate element existence
+    if (!firstNameEl || !firstScoreEl || !otherUsersContainer) {
+        console.error("Ranking elements not found in the DOM");
+        return;
+    }
+
+    // Clear previous rankings
     otherUsersContainer.innerHTML = '';
 
-    // Top 3 ranks ko display karna
-    if (quizResults.length > 0) {
-        firstNameEl.innerText = quizResults[0].fullName; // First rank ka naam dikhana
-        firstScoreEl.innerText = quizResults[0].score; // First rank ka score dikhana
+    // Display top 3 ranks with safety checks
+    if (sortedResults.length > 0) {
+        firstNameEl.innerText = sortedResults[0].fullName || 'N/A';
+        firstScoreEl.innerText = sortedResults[0].score || 0;
     }
 
-    if (quizResults.length > 1) {
-        secondNameEl.innerText = quizResults[1].fullName; // Second rank ka naam dikhana
-        secondScoreEl.innerText = quizResults[1].score; // Second rank ka score dikhana
+    if (sortedResults.length > 1) {
+        secondNameEl.innerText = sortedResults[1].fullName || 'N/A';
+        secondScoreEl.innerText = sortedResults[1].score || 0;
     }
 
-    if (quizResults.length > 2) {
-        thirdNameEl.innerText = quizResults[2].fullName; // Third rank ka naam dikhana
-        thirdScoreEl.innerText = quizResults[2].score; // Third rank ka score dikhana
+    if (sortedResults.length > 2) {
+        thirdNameEl.innerText = sortedResults[2].fullName || 'N/A';
+        thirdScoreEl.innerText = sortedResults[2].score || 0;
     }
 
-    // Sirf ranks #4, #5, aur #6 ko show karna
-    quizResults.slice(3, 6).forEach((user, index) => {
-        const isLoggedInUser = loggedInUser && loggedInUser.fullName === user.fullName; // Check kar rahe hain ki user logged-in hai ya nahi
+    // Find logged-in user's rank and score
+    if (loggedInUser) {
+        const userRank = sortedResults.findIndex(result => 
+            result.fullName === loggedInUser.fullName
+        );
+
+        if (userRank !== -1) {
+            const userScore = sortedResults[userRank].score;
+            
+            // Update rank heading and description
+            rankHeading.innerText = `Wow You Rank ${userRank + 1}st`;
+            rankDescription.innerText = `You scored ${userScore} points`;
+        }
+    }
+
+    // Display ranks 4 onwards
+    sortedResults.slice(3).forEach((user, index) => {
+        if (!user) return; // Skip if user is undefined
 
         const userDiv = document.createElement('div');
-        userDiv.className = `user-score ${isLoggedInUser ? 'highlighted' : ''}`; // Agar logged-in user hai toh usko highlight karna
+        userDiv.className = 'other-user';
 
         userDiv.innerHTML = `
-            <span class="rank">#${index + 4}</span> <!-- Rank numbering ko adjust kar rahe hain -->
-            <span class="name">${user.fullName}</span>
-            <span class="score">${user.score}</span>
+            <div class="other-user-rank">#${index + 4}</div>
+            <div class="other-user-name">${user.fullName || 'Unknown'}</div>
+            <div class="other-user-score">${user.score || 0}</div>
         `;
 
-        otherUsersContainer.appendChild(userDiv); // User ki details ko container me add karna
+        otherUsersContainer.appendChild(userDiv);
     });
 
-    console.log("Updated Rankings Displayed"); // Updated rankings ko console me show karna
+    // Logout functionality
+    window.logout = function() {
+        localStorage.removeItem('loggedInUser');
+        window.location.href = 'login.html';
+    };
+
+    // Profile dropdown toggle
+    const profilePhoto = document.getElementById('profile-photo');
+    const popupContainer = document.getElementById('popup-container');
+
+    document.addEventListener('click', function(event) {
+        if (!profilePhoto.contains(event.target)) {
+            profilePhoto.classList.remove('active');
+        }
+    });
 }
 
-document.addEventListener('DOMContentLoaded', displayRankings); // Jab page load ho, tab rankings ko display karna
+// Call the function when the page loads
+document.addEventListener('DOMContentLoaded', displayRankings); 
 
 
-// Function to log out the user
+
+
+
+
+
+// Add event listener for profile photo to toggle popup
+document.addEventListener("DOMContentLoaded", function () {
+    const profileImg = document.getElementById("profile-photo");
+    const popupContainer = document.getElementById("popup-container");
+
+    // Initially hide the popup
+    popupContainer.style.display = "none";
+
+    // Toggle visibility of popup when profile image is clicked
+    profileImg.addEventListener("click", function () {
+        // Toggle popup visibility
+        if (popupContainer.style.display === "none" || popupContainer.style.display === "") {
+            popupContainer.style.display = "block"; // Show dropdown
+        } else {
+            popupContainer.style.display = "none"; // Hide dropdown
+        }
+    });
+
+    // Close the menu if clicked outside of the profile picture and popup
+    window.addEventListener("click", function (event) {
+        if (!profileImg.contains(event.target) && !popupContainer.contains(event.target)) {
+            popupContainer.style.display = "none"; // Hide menu if clicked outside
+        }
+    });
+});
+
+// Logout function
 function logout() {
-    localStorage.removeItem('loggedInUser'); // Logged-in user ko localStorage se remove karna
-    window.location.href = 'login.html'; // Logout hone ke baad login page pe redirect karna
+    // Remove loggedInUser from localStorage
+    localStorage.removeItem("loggedInUser");
+
+    // Redirect to login page
+    alert("You have successfully logged out.");
+    window.location.href = "login.html"; // Redirect to your login page
+}
+
+function logout() {
+// Remove loggedInUser from localStorage
+localStorage.removeItem("loggedInUser");
+
+// Redirect to login page
+alert("You have successfully logged out.");
+window.location.href = "login.html"; // Redirect to your login page
 }
