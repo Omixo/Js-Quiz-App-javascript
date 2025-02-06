@@ -1,224 +1,229 @@
 const allquestions = [
     {
         id: 1,
-        question: "Which movie won the Best Picture Oscar in 1995?",
+        question: "Who did Roman Reigns target in his first official promo as the Tribal Chief?",
         options: [
-            { id: 1, value: "Forrest Gump" },
-            { id: 2, value: "Pulp Fiction" },
-            { id: 3, value: "The Shawshank Redemption" },
-            { id: 4, value: "Four Weddings and a Funeral" }
+            { id: 1, value: "Jey Uso" },
+            { id: 2, value: "The Fiend" },
+            { id: 3, value: "Braun Strowman" },
+            { id: 4, value: "Kevin Owens" }
         ],
         answer: 1
     },
     {
         id: 2,
-        question: "Who played Jack Dawson in the movie 'Titanic'?",
+        question: "What phrase did Paul Heyman use to describe Roman Reigns' dominance after his return?",
         options: [
-            { id: 1, value: "Leonardo DiCaprio" },
-            { id: 2, value: "Brad Pitt" },
-            { id: 3, value: "Johnny Depp" },
-            { id: 4, value: "Tom Cruise" }
+            { id: 1, value: "He's the final boss" },
+            { id: 2, value: "He's the end of the line" },
+            { id: 3, value: "He's the unstoppable force" },
+            { id: 4, value: "He's the reason why WWE exists" }
         ],
-        answer: 1
+        answer: 2
     },
     {
         id: 3,
-        question: "Which 1987 film starring Patrick Swayze became a huge hit for its 'Nobody puts Baby in a corner' line?",
+        question: "Which event featured Roman Reigns saying, 'I don’t care about anyone’s sob story' to Jey Uso?",
         options: [
-            { id: 1, value: "Dirty Dancing" },
-            { id: 2, value: "Ghost" },
-            { id: 3, value: "Road House" },
-            { id: 4, value: "Point Break" }
+            { id: 1, value: "Clash of Champions 2020" },
+            { id: 2, value: "Hell in a Cell 2020" },
+            { id: 3, value: "Survivor Series 2020" },
+            { id: 4, value: "Payback 2020" }
         ],
         answer: 1
     },
     {
         id: 4,
-        question: "Who directed 'Jurassic Park'?",
+        question: "Which opponent did Roman Reigns mock by calling him a 'fighting champion who fights for the people' before beating him?",
         options: [
-            { id: 1, value: "Steven Spielberg" },
-            { id: 2, value: "James Cameron" },
-            { id: 3, value: "George Lucas" },
-            { id: 4, value: "Ridley Scott" }
+            { id: 1, value: "Edge" },
+            { id: 2, value: "John Cena" },
+            { id: 3, value: "Drew McIntyre" },
+            { id: 4, value: "Cody Rhodes" }
         ],
-        answer: 1
+        answer: 2
     },
     {
         id: 5,
-        question: "Which animated film is set in the city of Zootopia?",
+        question: "Which moment led to Jey Uso saying, 'I’m out, Uce' and officially leaving The Bloodline?",
         options: [
-            { id: 1, value: "Zootopia" },
-            { id: 2, value: "Frozen" },
-            { id: 3, value: "Moana" },
-            { id: 4, value: "Big Hero 6" }
+            { id: 1, value: "Roman attacking Jimmy Uso" },
+            { id: 2, value: "Roman forcing him to acknowledge him" },
+            { id: 3, value: "Roman laughing at his pain" },
+            { id: 4, value: "Paul Heyman calling him the weak link" }
         ],
         answer: 1
     },
     {
         id: 6,
-        question: "Who played the titular role in 'Edward Scissorhands'?",
+        question: "What did Roman Reigns say after Jey Uso first refused to acknowledge him?",
         options: [
-            { id: 1, value: "Johnny Depp" },
-            { id: 2, value: "Leonardo DiCaprio" },
-            { id: 3, value: "Brad Pitt" },
-            { id: 4, value: "Tom Cruise" }
+            { id: 1, value: "'Then you ain’t Bloodline'" },
+            { id: 2, value: "'Then you're just a pawn'" },
+            { id: 3, value: "'Then you’re out'" },
+            { id: 4, value: "'Then you're just another Uso'" }
         ],
         answer: 1
     },
     {
         id: 7,
-        question: "In which movie is the main character’s name 'The Dude'?",
+        question: "Who was the first WWE Superstar to use the phrase 'YEET' on TV before Jey Uso made it his catchphrase?",
         options: [
-            { id: 1, value: "The Big Lebowski" },
-            { id: 2, value: "Fargo" },
-            { id: 3, value: "No Country for Old Men" },
-            { id: 4, value: "Burn After Reading" }
+            { id: 1, value: "Enzo Amore" },
+            { id: 2, value: "Ricochet" },
+            { id: 3, value: "Jimmy Uso" },
+            { id: 4, value: "Solo Sikoa" }
         ],
         answer: 1
     },
     {
         id: 8,
-        question: "'Hasta la vista, baby' is a line from which film?",
+        question: "Why did Drew McIntyre say he had 'unfinished business' when he turned heel?",
         options: [
-            { id: 1, value: "Terminator 2: Judgment Day" },
-            { id: 2, value: "Predator" },
-            { id: 3, value: "Total Recall" },
-            { id: 4, value: "Commando" }
+            { id: 1, value: "Because he lost to Roman Reigns unfairly" },
+            { id: 2, value: "Because CM Punk returned" },
+            { id: 3, value: "Because Seth Rollins took his spot" },
+            { id: 4, value: "Because he never got his WrestleMania moment in front of a crowd" }
         ],
-        answer: 1
+        answer: 4
     },
     {
         id: 9,
-        question: "Which 2000 film features the character Maximus Decimus Meridius?",
+        question: "What was the most controversial line CM Punk used against Drew McIntyre in their promo battle?",
         options: [
-            { id: 1, value: "Gladiator" },
-            { id: 2, value: "Troy" },
-            { id: 3, value: "300" },
-            { id: 4, value: "Alexander" }
+            { id: 1, value: "'You weren’t even the second choice'" },
+            { id: 2, value: "'You were a failure even when you were chosen'" },
+            { id: 3, value: "'You peaked in an empty arena'" },
+            { id: 4, value: "'You’ll never be the guy'" }
         ],
-        answer: 1
+        answer: 3
     },
     {
         id: 10,
-        question: "Who directed the 'Lord of the Rings' trilogy?",
+        question: "Which championship match did Drew McIntyre blame for ruining his career?",
         options: [
-            { id: 1, value: "Peter Jackson" },
-            { id: 2, value: "Christopher Nolan" },
-            { id: 3, value: "Steven Spielberg" },
-            { id: 4, value: "James Cameron" }
+            { id: 1, value: "Clash at the Castle 2022" },
+            { id: 2, value: "Elimination Chamber 2023" },
+            { id: 3, value: "WrestleMania 36" },
+            { id: 4, value: "Royal Rumble 2021" }
         ],
         answer: 1
     },
     {
         id: 11,
-        question: "Which movie features the quote 'Here's looking at you, kid'?",
+        question: "Which personal event did Seth Rollins reference to mock CM Punk?",
         options: [
-            { id: 1, value: "Casablanca" },
-            { id: 2, value: "Gone with the Wind" },
-            { id: 3, value: "Citizen Kane" },
-            { id: 4, value: "The Godfather" }
+            { id: 1, value: "His failed UFC career" },
+            { id: 2, value: "His WWE walkout in 2014" },
+            { id: 3, value: "His issues with Triple H" },
+            { id: 4, value: "His inability to stay in a company" }
         ],
-        answer: 1
+        answer: 4
     },
     {
         id: 12,
-        question: "Who played the character of Forrest Gump?",
+        question: "Which Roman Reigns promo did The Rock respond to in 2024?",
         options: [
-            { id: 1, value: "Tom Hanks" },
-            { id: 2, value: "Robin Williams" },
-            { id: 3, value: "Robert De Niro" },
-            { id: 4, value: "Al Pacino" }
+            { id: 1, value: "His 'Greatest of all time' promo" },
+            { id: 2, value: "His 'Head of the Table' promo" },
+            { id: 3, value: "His 'I run this place' promo" },
+            { id: 4, value: "His 'Nobody can touch me' promo" }
         ],
         answer: 1
     },
     {
         id: 13,
-        question: "Which movie is known for the line 'You can't handle the truth!'?",
+        question: "What did CM Punk call Seth Rollins during their contract signing?",
         options: [
-            { id: 1, value: "A Few Good Men" },
-            { id: 2, value: "The Firm" },
-            { id: 3, value: "The Pelican Brief" },
-            { id: 4, value: "The Client" }
+            { id: 1, value: "'A fake rebel'" },
+            { id: 2, value: "'The second choice'" },
+            { id: 3, value: "'A wannabe leader'" },
+            { id: 4, value: "'Roman’s leftovers'" }
         ],
-        answer: 1
+        answer: 4
     },
     {
         id: 14,
-        question: "Who directed the movie 'Inception'?",
+        question: "What insult did Roman Reigns use against Cody Rhodes at WrestleMania 39?",
         options: [
-            { id: 1, value: "Christopher Nolan" },
-            { id: 2, value: "Steven Spielberg" },
-            { id: 3, value: "James Cameron" },
-            { id: 4, value: "Quentin Tarantino" }
+            { id: 1, value: "'You run from adversity'" },
+            { id: 2, value: "'You ain’t ready for this'" },
+            { id: 3, value: "'You don’t have what it takes'" },
+            { id: 4, value: "'You were made for mid-card'" }
         ],
-        answer: 1
+        answer: 1 
+
     },
+    
     {
-        id: 15,
-        question: "Which movie features the character 'Hannibal Lecter'?",
-        options: [
-            { id: 1, value: "The Silence of the Lambs" },
-            { id: 2, value: "Se7en" },
-            { id: 3, value: "The Sixth Sense" },
-            { id: 4, value: "The Usual Suspects" }
-        ],
-        answer: 1
+    id: 15,
+            question: "During Roman Reigns' heel run, who was the first person to pin him clean in a singles match?",
+            options: [
+                { id: 1, value: "Seth Rollins" },
+                { id: 2, value: "Cody Rhodes" },
+                { id: 3, value: "Jey Uso" },
+                { id: 4, value: "Kevin Owens" }
+            ],
+            answer: 3
+        ,
     },
-    {
-        id: 16,
-        question: "Which movie is set in the fictional African country of Wakanda?",
-        options: [
-            { id: 1, value: "Black Panther" },
-            { id: 2, value: "Coming to America" },
-            { id: 3, value: "The Lion King" },
-            { id: 4, value: "Hotel Rwanda" }
-        ],
-        answer: 1
-    },
-    {
-        id: 17,
-        question: "Who played the character of 'The Joker' in 'The Dark Knight'?",
-        options: [
-            { id: 1, value: "Heath Ledger" },
-            { id: 2, value: "Joaquin Phoenix" },
-            { id: 3, value: "Jack Nicholson" },
-            { id: 4, value: "Jared Leto" }
-        ],
-        answer: 1
-    },
-    {
-        id: 18,
-        question: "Which movie features the quote 'May the Force be with you'?",
-        options: [
-            { id: 1, value: "Star Wars" },
-            { id: 2, value: "Star Trek" },
-            { id: 3, value: "Guardians of the Galaxy" },
-            { id: 4, value: "The Matrix" }
-        ],
-        answer: 1
-    },
-    {
-        id: 19,
-        question: "Who directed the movie 'Pulp Fiction'?",
-        options: [
-            { id: 1, value: "Quentin Tarantino" },
-            { id: 2, value: "Martin Scorsese" },
-            { id: 3, value: "Francis Ford Coppola" },
-            { id: 4, value: "Stanley Kubrick" }
-        ],
-        answer: 1
-    },
-    {
-        id: 20,
-        question: "Which movie features the character 'Neo'?",
-        options: [
-            { id: 1, value: "The Matrix" },
-            { id: 2, value: "Inception" },
-            { id: 3, value: "Blade Runner" },
-            { id: 4, value: "Minority Report" }
-        ],
-        answer: 1
-    }
+        {
+            id: 16,
+            question: "What did Drew McIntyre call CM Punk when Punk was injured and couldn't compete?",
+            options: [
+                { id: 1, value: "'The softest guy in the locker room'" },
+                { id: 2, value: "'The best in the world at getting hurt'" },
+                { id: 3, value: "'The biggest fraud in WWE history'" },
+                { id: 4, value: "'A broken man clinging to relevance'" }
+            ],
+            answer: 2
+        },
+        {
+            id: 17,
+            question: "Which phrase did Paul Heyman use to describe Roman Reigns' rule in WWE?",
+            options: [
+                { id: 1, value: "'The greatest title reign of all time'" },
+                { id: 2, value: "'A reign of terror'" },
+                { id: 3, value: "'The most dominant champion in modern history'" },
+                { id: 4, value: "'The undisputed ruler of WWE'" }
+            ],
+            answer: 3
+        },
+        {
+            id: 18,
+            question: "What was the first major move Jey Uso used against Roman Reigns after leaving The Bloodline?",
+            options: [
+                { id: 1, value: "Superkick" },
+                { id: 2, value: "Spear" },
+                { id: 3, value: "Uso Splash" },
+                { id: 4, value: "Chair shot" }
+            ],
+            answer: 2
+        },
+        {
+            id: 19,
+            question: "In their heated promo, what did CM Punk say Seth Rollins' biggest weakness was?",
+            options: [
+                { id: 1, value: "'Your obsession with being the guy'" },
+                { id: 2, value: "'Your fake tough guy act'" },
+                { id: 3, value: "'Your need for validation'" },
+                { id: 4, value: "'Your ego will destroy you'" }
+            ],
+            answer: 3
+        },
+        {
+            id: 20,
+            question: "What was the last thing Roman Reigns said before attacking Drew McIntyre in their final face-off?",
+            options: [
+                { id: 1, value: "'You ain't built like me'" },
+                { id: 2, value: "'This is my era'" },
+                { id: 3, value: "'I’m still the Head of the Table'" },
+                { id: 4, value: "'Acknowledge me or get out of my ring'" }
+            ],
+            answer: 1
+        }
+
+    
 ];
 
 // Function to shuffle the questions and select 10 random questions
