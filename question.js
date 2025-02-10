@@ -267,7 +267,7 @@ function loadQuestion() {
 
     // Special messages for Q8 & Q10
     let extraMessage = "";
-    if (currentQuestionIndex === 7) {
+    if (currentQuestionIndex === 8) {
         extraMessage = " - Hey! Last 2 questions remaining! ";
     } else if (currentQuestionIndex === 9) {
         extraMessage = " - This is your last question! Make it count!";
